@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
+import { Workbench } from "next/font/google";
 import "./globals.css";
+
+const workbench = Workbench({
+  variable: "--font-workbench",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "OG Grabber - Download OG Images",
@@ -13,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-neutral-950 text-white min-h-screen antialiased">
+      <body className={`${workbench.variable} bg-neutral-950 text-white min-h-screen antialiased`}>
         {children}
       </body>
     </html>

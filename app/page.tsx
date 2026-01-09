@@ -164,9 +164,10 @@ export default function Home() {
             href="https://limehawk.io"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-neutral-500 hover:text-white transition-colors text-sm"
+            className="text-neutral-400 hover:text-white transition-colors text-xl"
+            style={{ fontFamily: "var(--font-workbench)" }}
           >
-            A <span className="text-green-500">Limehawk</span> product
+            A <span className="text-green-500">LIMEHAWK</span> Product
           </a>
         </footer>
       </div>
