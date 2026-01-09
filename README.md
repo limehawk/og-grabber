@@ -1,47 +1,63 @@
+<div align="center">
+
 # OG Grabber
 
-[![Live Demo](https://img.shields.io/badge/demo-og--grabber.vercel.app-black?style=flat-square)](https://og-grabber.vercel.app/)
-[![Deploy with Vercel](https://img.shields.io/badge/deploy-vercel-black?style=flat-square&logo=vercel)](https://vercel.com/new/clone?repository-url=https://github.com/limehawk/og-grabber)
-[![Docker Image](https://img.shields.io/badge/docker-ghcr.io-blue?style=flat-square&logo=docker)](https://ghcr.io/limehawk/og-grabber)
+### Fetch and download Open Graph images at full resolution
+
+[![Live Demo](https://img.shields.io/badge/demo-og--grabber.vercel.app-black?style=for-the-badge)](https://og-grabber.vercel.app/)
+
+[![Deploy with Vercel](https://img.shields.io/badge/vercel-deploy-black?style=flat-square&logo=vercel)](https://vercel.com/new/clone?repository-url=https://github.com/limehawk/og-grabber)
+[![Docker](https://img.shields.io/badge/docker-ghcr.io-blue?style=flat-square&logo=docker)](https://ghcr.io/limehawk/og-grabber)
 [![License](https://img.shields.io/github/license/limehawk/og-grabber?style=flat-square)](LICENSE)
 
-**[Try it live](https://og-grabber.vercel.app/)**
+<br />
 
-A fast, simple tool to fetch and download Open Graph images from any URL at full resolution. Perfect for social media managers, marketers, and developers who need to preview or repurpose OG images.
+[**Try the Live Demo →**](https://og-grabber.vercel.app/)
+
+<br />
+
+</div>
+
+---
+
+A fast, simple tool to fetch and download Open Graph images from any URL. Perfect for social media managers, marketers, and developers who need to preview or repurpose OG images.
+
+<br />
 
 ## Features
 
-- **Full Resolution Downloads** - Get OG images at their original size (typically 1200×630)
-- **Instant Preview** - See exactly how your links will appear on social media
-- **One-Click Download** - Save images directly with clean, SEO-friendly filenames
-- **HTML Entity Decoding** - Properly handles `&amp;`, `&quot;`, and other encoded characters
-- **No API Keys Required** - Works out of the box with any public URL
-- **Self-Hostable** - Deploy on Vercel, Docker, or any Node.js environment
+| | |
+|---|---|
+| **Full Resolution** | Get OG images at their original size (typically 1200×630) |
+| **Instant Preview** | See exactly how your links will appear on social media |
+| **One-Click Download** | Save images with clean, SEO-friendly filenames |
+| **Entity Decoding** | Properly handles `&amp;`, `&quot;`, and other encoded characters |
+| **No API Keys** | Works out of the box with any public URL |
+| **Self-Hostable** | Deploy on Vercel, Docker, or any Node.js environment |
+
+<br />
 
 ## Use Cases
 
-### Social Media Management
-Preview and download OG images to use in social media posts, newsletters, or presentations without taking screenshots.
+**Social Media Management** — Preview and download OG images for posts, newsletters, or presentations
 
-### SEO & Marketing
-Audit OG images across your site or competitors' sites. Ensure your meta tags are generating the right preview images.
+**SEO & Marketing** — Audit OG images across your site or competitors' sites
 
-### Content Repurposing
-Grab OG images from blog posts or articles to use in link roundups, curated content, or social shares.
+**Content Repurposing** — Grab images for link roundups, curated content, or social shares
 
-### Development & QA
-Test and debug Open Graph implementations. Verify that dynamically generated OG images render correctly.
+**Development & QA** — Test and debug Open Graph implementations
 
-### Design Review
-Download OG images to review branding consistency, text legibility, and visual quality across different pages.
+**Design Review** — Check branding consistency and text legibility across pages
+
+<br />
 
 ## Quick Start
 
-### Vercel (Recommended)
+### Deploy to Vercel
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/limehawk/og-grabber)
 
-### Local Development
+### Run Locally
 
 ```bash
 git clone https://github.com/limehawk/og-grabber.git
@@ -50,25 +66,18 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
+<br />
 
-## Docker Deployment
+## Docker
 
-### Pull from GitHub Container Registry
+**Pull and run:**
 
 ```bash
 docker pull ghcr.io/limehawk/og-grabber:latest
-```
-
-### Run the Container
-
-```bash
 docker run -d -p 3000:3000 ghcr.io/limehawk/og-grabber:latest
 ```
 
-Access at [http://localhost:3000](http://localhost:3000)
-
-### Docker Compose
+**Or with Docker Compose:**
 
 ```yaml
 services:
@@ -83,22 +92,21 @@ services:
 docker compose up -d
 ```
 
-### Build Your Own Image
+**Build from source:**
 
 ```bash
-git clone https://github.com/limehawk/og-grabber.git
-cd og-grabber
 docker build -t og-grabber .
 docker run -d -p 3000:3000 og-grabber
 ```
 
-## API Endpoints
+<br />
 
-### GET `/api/fetch-og?url=<URL>`
+## API
 
-Fetches OG metadata from the specified URL.
+### `GET /api/fetch-og?url=<URL>`
 
-**Response:**
+Returns OG metadata:
+
 ```json
 {
   "imageUrl": "https://example.com/og-image.png",
@@ -108,15 +116,17 @@ Fetches OG metadata from the specified URL.
 }
 ```
 
-### GET `/api/download?url=<IMAGE_URL>&filename=<NAME>`
+### `GET /api/download?url=<IMAGE_URL>&filename=<NAME>`
 
-Proxies and downloads the image with the specified filename.
+Proxies and downloads the image.
+
+<br />
 
 ## Tech Stack
 
-- [Next.js 15](https://nextjs.org/) - React framework
-- [Tailwind CSS 4](https://tailwindcss.com/) - Styling
-- [TypeScript](https://www.typescriptlang.org/) - Type safety
+[Next.js 15](https://nextjs.org/) • [Tailwind CSS 4](https://tailwindcss.com/) • [TypeScript](https://www.typescriptlang.org/)
+
+<br />
 
 ## License
 
@@ -124,4 +134,8 @@ MIT
 
 ---
 
-Built by [Limehawk](https://limehawk.io) - Enterprise IT Security & Managed Services
+<div align="center">
+
+Built by **[Limehawk](https://limehawk.io)** — Enterprise IT Security & Managed Services
+
+</div>
