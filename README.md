@@ -1,5 +1,12 @@
 # OG Grabber
 
+[![Live Demo](https://img.shields.io/badge/demo-og--grabber.vercel.app-black?style=flat-square)](https://og-grabber.vercel.app/)
+[![Deploy with Vercel](https://img.shields.io/badge/deploy-vercel-black?style=flat-square&logo=vercel)](https://vercel.com/new/clone?repository-url=https://github.com/limehawk/og-grabber)
+[![Docker Image](https://img.shields.io/badge/docker-ghcr.io-blue?style=flat-square&logo=docker)](https://ghcr.io/limehawk/og-grabber)
+[![License](https://img.shields.io/github/license/limehawk/og-grabber?style=flat-square)](LICENSE)
+
+**[Try it live](https://og-grabber.vercel.app/)**
+
 A fast, simple tool to fetch and download Open Graph images from any URL at full resolution. Perfect for social media managers, marketers, and developers who need to preview or repurpose OG images.
 
 ## Features
