@@ -165,6 +165,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
             className="text-neutral-400 hover:text-white transition-colors text-xl"
+            style={{ fontFamily: "var(--font-jetbrains)" }}
           >
             A <span className="text-green-500" style={{ fontFamily: "var(--font-workbench)" }}>LIMEHAWK</span> Product
           </a>

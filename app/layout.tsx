@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
-import { Workbench } from "next/font/google";
+import { Workbench, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 const workbench = Workbench({
   variable: "--font-workbench",
+  subsets: ["latin"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains",
   subsets: ["latin"],
 });
 
@@ -19,7 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${workbench.variable} bg-neutral-950 text-white min-h-screen antialiased`}>
+      <body className={`${workbench.variable} ${jetbrainsMono.variable} bg-neutral-950 text-white min-h-screen antialiased`}>
         {children}
       </body>
     </html>
