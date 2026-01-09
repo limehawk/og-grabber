@@ -159,15 +159,27 @@ export default function Home() {
             </div>
           </div>
         )}
-        <footer className="mt-16 pt-8 border-t border-neutral-800 text-center">
-          <a
-            href="https://limehawk.io"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-neutral-400 hover:text-white transition-colors text-xl"
-          >
-            A <span className="text-green-500" style={{ fontFamily: "var(--font-workbench)" }}>LIMEHAWK</span> Product
-          </a>
+        <footer className="mt-20 py-8 border-t border-neutral-800">
+          <div className="flex flex-col items-center gap-3">
+            <a
+              href="https://limehawk.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-2 text-neutral-500 hover:text-white transition-colors"
+            >
+              <span className="text-sm uppercase tracking-wider">A</span>
+              <span
+                className="text-2xl text-green-500 group-hover:text-green-400 transition-colors"
+                style={{ fontFamily: "var(--font-workbench)" }}
+              >
+                LIMEHAWK
+              </span>
+              <span className="text-sm uppercase tracking-wider">Product</span>
+            </a>
+            <p className="text-neutral-600 text-xs">
+              Enterprise IT Security & Managed Services
+            </p>
+          </div>
         </footer>
       </div>
     </main>
