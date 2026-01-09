@@ -96,6 +96,12 @@ export default function Home() {
           </div>
         )}
 
+        {!ogData && !loading && !error && (
+          <div className="text-center text-neutral-500 py-16">
+            Enter a URL above to fetch its OG image
+          </div>
+        )}
+
         {ogData && (
           <div className="space-y-6">
             <div className="p-4 bg-neutral-900 border border-neutral-800 rounded-lg">
@@ -153,6 +159,16 @@ export default function Home() {
             </div>
           </div>
         )}
+        <footer className="mt-16 pt-8 border-t border-neutral-800 text-center">
+          <a
+            href="https://limehawk.io"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-neutral-500 hover:text-white transition-colors text-sm"
+          >
+            A <span className="text-green-500">Limehawk</span> product
+          </a>
+        </footer>
       </div>
     </main>
   );

@@ -121,3 +121,7 @@ Proxies and downloads the image with the specified filename.
 ## License
 
 MIT
+
+---
+
+Built by [Limehawk](https://limehawk.io) - Enterprise IT Security & Managed Services
