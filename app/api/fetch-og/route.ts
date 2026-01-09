@@ -1,5 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 
+function decodeHtmlEntities(text: string): string {
+  return text
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&#x27;/g, "'")
+    .replace(/&#x2F;/g, "/");
+}
+
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const url = searchParams.get("url");
@@ -70,10 +81,13 @@ export async function GET(request: NextRequest) {
       ? imageUrl
       : new URL(imageUrl, url).toString();
 
+    const title = ogTitleMatch?.[1] || titleMatch?.[1] || "Untitled";
+    const description = ogDescMatch?.[1] || "";
+
     return NextResponse.json({
       imageUrl: absoluteImageUrl,
-      title: ogTitleMatch?.[1] || titleMatch?.[1] || "Untitled",
-      description: ogDescMatch?.[1] || "",
+      title: decodeHtmlEntities(title),
+      description: decodeHtmlEntities(description),
       sourceUrl: url,
     });
   } catch (error) {
