@@ -64,15 +64,15 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen p-8">
+    <main className="min-h-screen p-4 sm:p-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold mb-2">OG Grabber</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold mb-2">OG Grabber</h1>
         <p className="text-neutral-400 mb-8">
           Enter a URL to fetch its Open Graph image at full resolution
         </p>
 
         <form onSubmit={fetchOgImage} className="mb-8">
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-3">
             <input
               type="text"
               value={url}
@@ -83,7 +83,7 @@ export default function Home() {
             <button
               type="submit"
               disabled={loading || !url.trim()}
-              className="px-6 py-3 bg-white text-black font-medium rounded-lg hover:bg-neutral-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="w-full sm:w-auto px-6 py-3 bg-white text-black font-medium rounded-lg hover:bg-neutral-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               {loading ? "Fetching..." : "Fetch"}
             </button>
@@ -134,10 +134,10 @@ export default function Home() {
               />
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               <button
                 onClick={downloadImage}
-                className="px-6 py-3 bg-white text-black font-medium rounded-lg hover:bg-neutral-200 transition-colors"
+                className="w-full sm:w-auto px-6 py-3 bg-white text-black font-medium rounded-lg hover:bg-neutral-200 transition-colors"
               >
                 Download Image
               </button>
@@ -145,7 +145,7 @@ export default function Home() {
                 href={ogData.imageUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 bg-neutral-800 text-white font-medium rounded-lg hover:bg-neutral-700 transition-colors"
+                className="w-full sm:w-auto text-center px-6 py-3 bg-neutral-800 text-white font-medium rounded-lg hover:bg-neutral-700 transition-colors"
               >
                 Open in New Tab
               </a>
