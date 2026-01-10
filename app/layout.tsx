@@ -35,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${workbench.variable} ${spaceMono.variable} bg-neutral-950 text-white min-h-screen antialiased`} style={{ fontFamily: "var(--font-space-mono)" }}>
         {children}
       </body>
