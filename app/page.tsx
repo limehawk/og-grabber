@@ -70,8 +70,8 @@ export default function Home() {
   return (
     <main className="min-h-screen p-4 sm:p-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-2">OG Grabber</h1>
-        <p className="text-neutral-400 mb-8">
+        <h1 className="text-2xl sm:text-3xl font-extrabold mb-2 tracking-tight">OG Grabber</h1>
+        <p className="text-neutral-400 mb-8 font-light">
           Enter a URL to fetch its Open Graph image at full resolution
         </p>
 
@@ -87,7 +87,7 @@ export default function Home() {
             <button
               type="submit"
               disabled={loading || !url.trim()}
-              className="w-full sm:w-auto px-6 py-3 bg-white text-black font-medium rounded-lg hover:bg-neutral-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="w-full sm:w-auto px-6 py-3 bg-white text-black font-semibold rounded-lg hover:bg-neutral-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               {loading ? "Fetching..." : "Fetch"}
             </button>
@@ -95,13 +95,13 @@ export default function Home() {
         </form>
 
         {error && (
-          <div className="p-4 bg-red-950 border border-red-900 rounded-lg text-red-300 mb-8">
+          <div className="p-4 bg-red-950 border border-red-900 rounded-lg text-red-300 mb-8 font-medium">
             {error}
           </div>
         )}
 
         {!ogData && !loading && !error && (
-          <div className="text-center text-neutral-500 py-16">
+          <div className="text-center text-neutral-500 py-16 font-light">
             Enter a URL above to fetch its OG image
           </div>
         )}
@@ -109,13 +109,13 @@ export default function Home() {
         {ogData && (
           <div className="space-y-6">
             <div className="p-4 bg-neutral-900 border border-neutral-800 rounded-lg">
-              <h2 className="font-medium mb-1">{ogData.title}</h2>
+              <h2 className="font-bold mb-1">{ogData.title}</h2>
               {ogData.description && (
-                <p className="text-sm text-neutral-400 mb-3">
+                <p className="text-sm text-neutral-400 mb-3 font-light">
                   {ogData.description}
                 </p>
               )}
-              <p className="text-xs text-neutral-500 break-all">
+              <p className="text-xs text-neutral-500 break-all font-extralight">
                 {ogData.sourceUrl}
               </p>
             </div>
@@ -152,7 +152,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-3">
               <button
                 onClick={downloadImage}
-                className="w-full sm:w-auto px-6 py-3 bg-white text-black font-medium rounded-lg hover:bg-neutral-200 transition-colors"
+                className="w-full sm:w-auto px-6 py-3 bg-white text-black font-semibold rounded-lg hover:bg-neutral-200 transition-colors"
               >
                 Download Image
               </button>
@@ -167,8 +167,8 @@ export default function Home() {
             </div>
 
             <div className="p-4 bg-neutral-900 border border-neutral-800 rounded-lg">
-              <p className="text-xs text-neutral-500 mb-2">Image URL:</p>
-              <code className="text-sm text-neutral-300 break-all block">
+              <p className="text-xs text-neutral-500 mb-2 font-medium uppercase tracking-wider">Image URL</p>
+              <code className="text-sm text-neutral-300 break-all block font-light">
                 {ogData.imageUrl}
               </code>
             </div>
@@ -182,16 +182,16 @@ export default function Home() {
               rel="noopener noreferrer"
               className="group flex items-center gap-2 text-neutral-500 hover:text-white transition-colors"
             >
-              <span className="text-sm uppercase tracking-wider">A</span>
+              <span className="text-sm uppercase tracking-widest font-thin">A</span>
               <span
                 className="text-2xl text-green-500 group-hover:text-green-400 transition-colors"
                 style={{ fontFamily: "var(--font-workbench)" }}
               >
                 LIMEHAWK
               </span>
-              <span className="text-sm uppercase tracking-wider">Product</span>
+              <span className="text-sm uppercase tracking-widest font-thin">Product</span>
             </a>
-            <p className="text-neutral-600 text-xs">
+            <p className="text-neutral-600 text-xs font-extralight tracking-wide">
               Enterprise IT Security & Managed Services
             </p>
           </div>
