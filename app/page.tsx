@@ -10,7 +10,7 @@ interface OGData {
 }
 
 export default function Home() {
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState("https://og-grabber.vercel.app");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [ogData, setOgData] = useState<OGData | null>(null);
