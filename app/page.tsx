@@ -107,7 +107,7 @@ export default function Home() {
 
         {/* Empty state */}
         {!ogData && !loading && !error && (
-          <div className="text-center text-neutral-600 py-20 font-extralight text-lg">
+          <div className="text-center text-neutral-600 py-8 font-extralight text-lg">
             Enter a URL above to fetch its OG image
           </div>
         )}
