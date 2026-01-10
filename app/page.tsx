@@ -172,7 +172,7 @@ export default function Home() {
                 className="text-2xl text-green-500 group-hover:text-green-400 transition-colors"
                 style={{ fontFamily: "var(--font-workbench)" }}
               >
-                LIMEHAWK<span className="inline-block w-3 h-5 bg-green-500 terminal-cursor align-middle ml-0.5" />
+                LIMEHAWK
               </span>
               <span className="text-sm uppercase tracking-wider">Product</span>
             </a>
