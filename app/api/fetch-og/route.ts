@@ -1,15 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-
-function decodeHtmlEntities(text: string): string {
-  return text
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&#x27;/g, "'")
-    .replace(/&#x2F;/g, "/");
-}
+import {
+  validateUrl,
+  decodeHtmlEntities,
+  FETCH_TIMEOUT_MS,
+  MAX_HTML_SIZE,
+} from "@/app/lib/url-validator";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -19,13 +14,27 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "URL is required" }, { status: 400 });
   }
 
+  // Validate URL to prevent SSRF
+  const validation = validateUrl(url);
+  if (!validation.valid) {
+    return NextResponse.json({ error: validation.error }, { status: 400 });
+  }
+
+  // Create AbortController for timeout
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+
   try {
-    // Fetch the page HTML
     const response = await fetch(url, {
       headers: {
         "User-Agent": "Mozilla/5.0 (compatible; OGGrabber/1.0)",
+        "Accept": "text/html",
       },
+      signal: controller.signal,
+      redirect: "follow",
     });
+
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       return NextResponse.json(
@@ -34,7 +43,45 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const html = await response.text();
+    // Check content length before reading
+    const contentLength = response.headers.get("content-length");
+    if (contentLength && parseInt(contentLength) > MAX_HTML_SIZE) {
+      return NextResponse.json(
+        { error: "Page is too large to process" },
+        { status: 400 }
+      );
+    }
+
+    // Read response with size limit
+    const reader = response.body?.getReader();
+    if (!reader) {
+      return NextResponse.json(
+        { error: "Failed to read response" },
+        { status: 500 }
+      );
+    }
+
+    const chunks: Uint8Array[] = [];
+    let totalSize = 0;
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      totalSize += value.length;
+      if (totalSize > MAX_HTML_SIZE) {
+        reader.cancel();
+        return NextResponse.json(
+          { error: "Page is too large to process" },
+          { status: 400 }
+        );
+      }
+      chunks.push(value);
+    }
+
+    const html = new TextDecoder().decode(
+      Buffer.concat(chunks.map(chunk => Buffer.from(chunk)))
+    );
 
     // Extract og:image using regex
     const ogImageMatch = html.match(
@@ -76,10 +123,22 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    // Decode HTML entities in the image URL first
+    const decodedImageUrl = decodeHtmlEntities(imageUrl);
+
     // Resolve relative URLs
-    const absoluteImageUrl = imageUrl.startsWith("http")
-      ? imageUrl
-      : new URL(imageUrl, url).toString();
+    const absoluteImageUrl = decodedImageUrl.startsWith("http")
+      ? decodedImageUrl
+      : new URL(decodedImageUrl, url).toString();
+
+    // Validate the resolved image URL to prevent SSRF via redirect
+    const imageValidation = validateUrl(absoluteImageUrl);
+    if (!imageValidation.valid) {
+      return NextResponse.json(
+        { error: "Invalid image URL" },
+        { status: 400 }
+      );
+    }
 
     const title = ogTitleMatch?.[1] || titleMatch?.[1] || "Untitled";
     const description = ogDescMatch?.[1] || "";
@@ -91,6 +150,15 @@ export async function GET(request: NextRequest) {
       sourceUrl: url,
     });
   } catch (error) {
+    clearTimeout(timeoutId);
+
+    if (error instanceof Error && error.name === "AbortError") {
+      return NextResponse.json(
+        { error: "Request timed out" },
+        { status: 408 }
+      );
+    }
+
     console.error("Error fetching OG data:", error);
     return NextResponse.json(
       { error: "Failed to fetch page" },

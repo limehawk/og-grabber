@@ -9,12 +9,15 @@ interface OGData {
   sourceUrl: string;
 }
 
+const IMAGE_LOAD_ERROR = "Failed to load image. The image may be blocked by CORS or no longer available.";
+
 export default function Home() {
   const [url, setUrl] = useState("https://og-grabber.vercel.app");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [ogData, setOgData] = useState<OGData | null>(null);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const fetchOgImage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,6 +27,7 @@ export default function Home() {
     setError("");
     setOgData(null);
     setImageLoaded(false);
+    setImageError(false);
 
     try {
       // Ensure URL has protocol
@@ -117,7 +121,7 @@ export default function Home() {
             </div>
 
             <div className="border border-neutral-800 rounded-lg overflow-hidden relative">
-              {!imageLoaded && (
+              {!imageLoaded && !imageError && (
                 <div className="w-full aspect-[1200/630] bg-neutral-900 animate-pulse flex items-center justify-center">
                   <svg className="w-12 h-12 text-neutral-700 animate-spin" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
@@ -125,12 +129,23 @@ export default function Home() {
                   </svg>
                 </div>
               )}
+              {imageError && (
+                <div className="w-full aspect-[1200/630] bg-neutral-900 flex items-center justify-center">
+                  <div className="text-center p-4">
+                    <svg className="w-12 h-12 text-red-500 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <p className="text-red-400 text-sm">{IMAGE_LOAD_ERROR}</p>
+                  </div>
+                </div>
+              )}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={ogData.imageUrl}
                 alt={ogData.title}
-                className={`w-full h-auto ${imageLoaded ? "block" : "hidden"}`}
+                className={`w-full h-auto ${imageLoaded && !imageError ? "block" : "hidden"}`}
                 onLoad={() => setImageLoaded(true)}
+                onError={() => setImageError(true)}
               />
             </div>
 
