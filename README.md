@@ -4,7 +4,7 @@
 
 ### Fetch and download Open Graph images at full resolution
 
-[![Live Demo](https://img.shields.io/badge/demo-og--grabber.vercel.app-black)](https://og-grabber.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/demo-og--grabber.vercel.app-black?style=for-the-badge)](https://og-grabber.vercel.app/)
 
 [![Deploy with Vercel](https://img.shields.io/badge/vercel-deploy-black?logo=vercel)](https://vercel.com/new/clone?repository-url=https://github.com/limehawk/og-grabber)
 [![Docker](https://img.shields.io/badge/docker-ghcr.io-blue?logo=docker)](https://ghcr.io/limehawk/og-grabber)
