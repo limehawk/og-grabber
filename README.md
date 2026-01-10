@@ -6,8 +6,8 @@
 
 [![Live Demo](https://img.shields.io/badge/demo-og--grabber.vercel.app-black?style=for-the-badge)](https://og-grabber.vercel.app/)
 
-[![Deploy with Vercel](https://img.shields.io/badge/vercel-deploy-black?style=flat-square&logo=vercel)](https://vercel.com/new/clone?repository-url=https://github.com/limehawk/og-grabber)
-[![Docker](https://img.shields.io/badge/docker-ghcr.io-blue?style=flat-square&logo=docker)](https://ghcr.io/limehawk/og-grabber)
+[![Deploy with Vercel](https://img.shields.io/badge/vercel-deploy-black?logo=vercel)](https://vercel.com/new/clone?repository-url=https://github.com/limehawk/og-grabber)
+[![Docker](https://img.shields.io/badge/docker-ghcr.io-blue?logo=docker)](https://ghcr.io/limehawk/og-grabber)
 [![License](https://img.shields.io/github/license/limehawk/og-grabber)](LICENSE)
 
 <br />
