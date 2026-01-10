@@ -30,7 +30,6 @@ export default function Home() {
     setImageError(false);
 
     try {
-      // Ensure URL has protocol
       let fetchUrl = url.trim();
       if (!fetchUrl.startsWith("http")) {
         fetchUrl = "https://" + fetchUrl;
@@ -56,87 +55,89 @@ export default function Home() {
   const downloadImage = () => {
     if (!ogData) return;
 
-    // Create filename from title
     const filename = ogData.title
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-|-$/g, "")
       .slice(0, 50) || "og-image";
 
-    // Use download proxy to avoid CORS
     window.location.href = `/api/download?url=${encodeURIComponent(ogData.imageUrl)}&filename=${encodeURIComponent(filename)}`;
   };
 
   return (
-    <main className="min-h-screen p-4 sm:p-8">
+    <main className="min-h-screen p-4 sm:p-8 lg:p-12">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-extrabold mb-2 tracking-tight">OG Grabber</h1>
-        <p className="text-neutral-400 mb-8 font-light">
-          Enter a URL to fetch its Open Graph image at full resolution
-        </p>
+        {/* Header with dramatic weight contrast */}
+        <header className="mb-12">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl mb-4">
+            <span className="font-extrabold text-green-500">OG</span>
+            <span className="font-thin text-white ml-3">Grabber</span>
+          </h1>
+          <p className="text-neutral-500 font-extralight text-lg tracking-wide">
+            Fetch and download Open Graph images at full resolution
+          </p>
+        </header>
 
-        <form onSubmit={fetchOgImage} className="mb-8">
+        {/* Search form */}
+        <form onSubmit={fetchOgImage} className="mb-12">
           <div className="flex flex-col sm:flex-row gap-3">
             <input
               type="text"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
-              placeholder="https://example.com/page"
-              className="flex-1 px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-lg focus:outline-none focus:border-neutral-600 text-white placeholder:text-neutral-500"
+              placeholder="https://example.com"
+              className="flex-1 px-5 py-4 bg-neutral-900/50 border border-neutral-800 rounded-lg focus:outline-none focus:border-green-500/50 text-white placeholder:text-neutral-600 font-light text-lg"
             />
             <button
               type="submit"
               disabled={loading || !url.trim()}
-              className="w-full sm:w-auto px-6 py-3 bg-white text-black font-semibold rounded-lg hover:bg-neutral-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="w-full sm:w-auto px-8 py-4 bg-green-500 text-black font-bold rounded-lg hover:bg-green-400 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed transition-colors text-lg"
             >
-              {loading ? "Fetching..." : "Fetch"}
+              {loading ? "..." : "Fetch"}
             </button>
           </div>
         </form>
 
+        {/* Error state */}
         {error && (
-          <div className="p-4 bg-red-950 border border-red-900 rounded-lg text-red-300 mb-8 font-medium">
+          <div className="p-5 bg-red-950/50 border border-red-900/50 rounded-lg text-red-400 mb-8 font-light">
             {error}
           </div>
         )}
 
+        {/* Empty state */}
         {!ogData && !loading && !error && (
-          <div className="text-center text-neutral-500 py-16 font-light">
+          <div className="text-center text-neutral-600 py-20 font-extralight text-lg">
             Enter a URL above to fetch its OG image
           </div>
         )}
 
+        {/* Results */}
         {ogData && (
-          <div className="space-y-6">
-            <div className="p-4 bg-neutral-900 border border-neutral-800 rounded-lg">
-              <h2 className="font-bold mb-1">{ogData.title}</h2>
+          <div className="space-y-8">
+            {/* Metadata card */}
+            <div className="p-6 bg-neutral-900/30 border border-neutral-800/50 rounded-xl">
+              <h2 className="font-semibold text-xl mb-2 text-white">{ogData.title}</h2>
               {ogData.description && (
-                <p className="text-sm text-neutral-400 mb-3 font-light">
+                <p className="text-neutral-400 mb-4 font-extralight leading-relaxed">
                   {ogData.description}
                 </p>
               )}
-              <p className="text-xs text-neutral-500 break-all font-extralight">
+              <p className="text-neutral-600 text-sm break-all font-thin">
                 {ogData.sourceUrl}
               </p>
             </div>
 
-            <div className="border border-neutral-800 rounded-lg overflow-hidden relative">
+            {/* Image preview */}
+            <div className="border border-neutral-800/50 rounded-xl overflow-hidden">
               {!imageLoaded && !imageError && (
-                <div className="w-full aspect-[1200/630] bg-neutral-900 animate-pulse flex items-center justify-center">
-                  <svg className="w-12 h-12 text-neutral-700 animate-spin" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                  </svg>
+                <div className="w-full aspect-[1200/630] bg-neutral-900/50 animate-pulse flex items-center justify-center">
+                  <div className="w-8 h-8 border-2 border-green-500/30 border-t-green-500 rounded-full animate-spin" />
                 </div>
               )}
               {imageError && (
-                <div className="w-full aspect-[1200/630] bg-neutral-900 flex items-center justify-center">
-                  <div className="text-center p-4">
-                    <svg className="w-12 h-12 text-red-500 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                    </svg>
-                    <p className="text-red-400 text-sm">{IMAGE_LOAD_ERROR}</p>
-                  </div>
+                <div className="w-full aspect-[1200/630] bg-neutral-900/50 flex items-center justify-center">
+                  <p className="text-red-400/70 font-extralight text-center px-8">{IMAGE_LOAD_ERROR}</p>
                 </div>
               )}
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -149,49 +150,53 @@ export default function Home() {
               />
             </div>
 
+            {/* Action buttons */}
             <div className="flex flex-col sm:flex-row gap-3">
               <button
                 onClick={downloadImage}
-                className="w-full sm:w-auto px-6 py-3 bg-white text-black font-semibold rounded-lg hover:bg-neutral-200 transition-colors"
+                className="w-full sm:w-auto px-8 py-4 bg-white text-black font-bold rounded-lg hover:bg-neutral-200 cursor-pointer transition-colors"
               >
-                Download Image
+                Download
               </button>
               <a
                 href={ogData.imageUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto text-center px-6 py-3 bg-neutral-800 text-white font-medium rounded-lg hover:bg-neutral-700 transition-colors"
+                className="w-full sm:w-auto text-center px-8 py-4 bg-neutral-800/50 text-white font-light rounded-lg hover:bg-neutral-700/50 cursor-pointer transition-colors border border-neutral-700/50"
               >
-                Open in New Tab
+                Open Original
               </a>
             </div>
 
-            <div className="p-4 bg-neutral-900 border border-neutral-800 rounded-lg">
-              <p className="text-xs text-neutral-500 mb-2 font-medium uppercase tracking-wider">Image URL</p>
-              <code className="text-sm text-neutral-300 break-all block font-light">
+            {/* URL display */}
+            <div className="p-5 bg-neutral-900/30 border border-neutral-800/50 rounded-xl">
+              <p className="text-neutral-600 text-xs mb-3 font-medium uppercase tracking-widest">Direct URL</p>
+              <code className="text-neutral-400 break-all block font-thin text-sm">
                 {ogData.imageUrl}
               </code>
             </div>
           </div>
         )}
-        <footer className="mt-20 py-8 border-t border-neutral-800">
-          <div className="flex flex-col items-center gap-3">
+
+        {/* Footer */}
+        <footer className="mt-24 py-8 border-t border-neutral-800/50">
+          <div className="flex flex-col items-center gap-4">
             <a
               href="https://limehawk.io"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-2 text-neutral-500 hover:text-white transition-colors"
+              className="group flex items-center gap-3 text-neutral-600 hover:text-white transition-colors"
             >
-              <span className="text-sm uppercase tracking-widest font-thin">A</span>
+              <span className="text-xs uppercase tracking-[0.3em] font-thin">A</span>
               <span
                 className="text-2xl text-green-500 group-hover:text-green-400 transition-colors"
                 style={{ fontFamily: "var(--font-workbench)" }}
               >
                 LIMEHAWK
               </span>
-              <span className="text-sm uppercase tracking-widest font-thin">Product</span>
+              <span className="text-xs uppercase tracking-[0.3em] font-thin">Product</span>
             </a>
-            <p className="text-neutral-600 text-xs font-extralight tracking-wide">
+            <p className="text-neutral-700 text-xs font-thin tracking-wider">
               Enterprise IT Security & Managed Services
             </p>
           </div>
