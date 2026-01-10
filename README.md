@@ -8,7 +8,7 @@
 
 [![Deploy with Vercel](https://img.shields.io/badge/vercel-deploy-black?style=flat-square&logo=vercel)](https://vercel.com/new/clone?repository-url=https://github.com/limehawk/og-grabber)
 [![Docker](https://img.shields.io/badge/docker-ghcr.io-blue?style=flat-square&logo=docker)](https://ghcr.io/limehawk/og-grabber)
-[![License](https://img.shields.io/github/license/limehawk/og-grabber?style=flat-square)](LICENSE)
+[![License](https://img.shields.io/github/license/limehawk/og-grabber)](LICENSE)
 
 <br />
 
