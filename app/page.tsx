@@ -167,12 +167,14 @@ export default function Home() {
               rel="noopener noreferrer"
               className="group flex items-center gap-2 text-neutral-500 hover:text-white transition-colors"
             >
+              <span className="text-sm uppercase tracking-wider">A</span>
               <span
                 className="text-2xl text-green-500 group-hover:text-green-400 transition-colors"
                 style={{ fontFamily: "var(--font-workbench)" }}
               >
                 LIMEHAWK
               </span>
+              <span className="text-sm uppercase tracking-wider">Product</span>
               <span className="w-3 h-5 bg-green-500 terminal-cursor" />
             </a>
             <p className="text-neutral-600 text-xs">
