@@ -13,6 +13,7 @@ const IMAGE_LOAD_ERROR = "Failed to load image. The image may be blocked by CORS
 
 export default function Home() {
   const [url, setUrl] = useState("https://og-grabber.vercel.app");
+  const [hasInteracted, setHasInteracted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [ogData, setOgData] = useState<OGData | null>(null);
@@ -85,6 +86,7 @@ export default function Home() {
               type="text"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
+              onFocus={() => { if (!hasInteracted) { setUrl(""); setHasInteracted(true); } }}
               placeholder="https://example.com"
               className="flex-1 px-5 py-4 bg-neutral-900/50 border border-neutral-800 rounded-lg focus:outline-none focus:border-green-500/50 text-white placeholder:text-neutral-600 font-light text-lg"
             />
