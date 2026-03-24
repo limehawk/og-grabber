@@ -70,12 +70,21 @@ export default function Home() {
       <div className="max-w-4xl mx-auto">
         {/* Header with dramatic weight contrast */}
         <header className="mb-12">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl mb-4">
-            <span className="font-extrabold text-green-500">OG</span>
-            <span className="font-thin text-white ml-3">Grabber</span>
-          </h1>
+          <div className="flex items-center gap-4 mb-4">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl">
+              <span className="font-extrabold text-green-500">OG</span>
+              <span className="font-thin text-white ml-3">Grabber</span>
+            </h1>
+            {process.env.NODE_ENV === "development" && (
+              <span className="px-3 py-1 text-xs font-medium uppercase tracking-widest bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 rounded-full self-center">
+                Dev
+              </span>
+            )}
+          </div>
           <p className="text-neutral-500 font-extralight text-lg tracking-wide">
-            Fetch and download Open Graph images at full resolution
+            {process.env.NODE_ENV === "development"
+              ? "Localhost and private network URLs enabled"
+              : "Fetch and download Open Graph images at full resolution"}
           </p>
         </header>
 

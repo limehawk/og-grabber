@@ -50,6 +50,12 @@ export function validateUrl(urlString: string): ValidationResult {
     return { valid: false, error: 'Only HTTP and HTTPS URLs are allowed' };
   }
 
+  // In development, skip network-level restrictions to allow localhost access.
+  // Format and protocol checks above still apply in all environments.
+  if (process.env.NODE_ENV !== 'production') {
+    return { valid: true };
+  }
+
   const hostname = url.hostname.toLowerCase();
 
   // Check blocked hostnames
