@@ -62,8 +62,8 @@ A fast, simple tool to fetch and download Open Graph images from any URL. Perfec
 ```bash
 git clone https://github.com/limehawk/og-grabber.git
 cd og-grabber
-npm install
-npm run dev
+bun install
+bun run dev
 ```
 
 <br />
